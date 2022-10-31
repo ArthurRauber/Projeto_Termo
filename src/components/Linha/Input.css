@@ -1,0 +1,22 @@
+input {
+    color: #FFF;
+    width: 70px;
+    height: 70px;
+    margin: 4px;
+    font-size: 50px;
+    border-radius: 5px;
+    text-align: center;
+    border: 5px #312a2c solid;
+    text-transform: uppercase;
+    background-color: #6e5c62;
+
+}
+
+.linha {
+    flex-direction: row;
+}
+
+.acertou {
+    background-color: #3aa394;
+    border: 5px solid #3aa394;
+}
