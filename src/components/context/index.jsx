@@ -1,39 +1,49 @@
 import { createContext, useReducer } from "react";
 
+
 const initialState = {
     change: "padrao",
     disable: [[true, true, true, true, true],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false],
-            [false, false, false, false, false]],
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+    [false, false, false, false, false],
+    [false, false, false, false, false]],
     linha_habilitada: 0,
-    linha: 1,
+    linha: 0,
 }
 
-let l=-1;
+let contador = 0;
 const termoReducer = (state, action) => {
     switch(action.type){
-            case "CHANGE_ENABLED": {
+        case "CHANGE_ENABLED": {
+                let json1 = localStorage.getItem("linha_h");
+                let aux1 = parseInt(json1);
+                
                 return {
                     ...state,
                     change: "acertou",
-                    disable: [[true, true, true, true, true],
-                    [true, true, true, true, true],
-                    [true, true, true, true, true],
-                    [true, true, true, true, true],
-                    [true, true, true, true, true],
-                    [true, true, true, true, true]],
+                    disable: initialState.disable[aux1]=[true, true, true, true, true],
+
+                };
+            }
+            case "CHANGE_ERRADO": {
+                return {
+                    ...state,
+                    change: "errou",
                 };
             }
             case "CHANGE_INPUT":{
-                if(l==-1){
-                    l++;
-                }
-                console.log(l)
+                
+                let json = localStorage.getItem("linha_h");
+                let aux = parseInt(json)+1;
+                
+                console.log(aux);
+                localStorage.setItem("linha_h",JSON.stringify(aux));
+                aux = parseInt(json)-2;
                 return{
                     ...state,
-                    linha_habilitada: l,
+                    change: "errou",
+                    linha_habilitada: aux,
                 }
               }
         default: 
@@ -48,3 +58,4 @@ export const TermoProvider = ({ children }) => {
 
   return <TermoContext.Provider value={value}>{children}</TermoContext.Provider>;
 };
+

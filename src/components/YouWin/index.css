@@ -1,0 +1,17 @@
+.div-ganhou{
+    width: 100%;
+}
+.ganhou{
+    background-color: #222222;
+    width: 100px;
+    padding: 7px;
+    z-index: 1;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 13px;
+}
+*{
+    overflow-y: hidden;
+}
