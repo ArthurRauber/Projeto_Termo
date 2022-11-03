@@ -10,6 +10,8 @@ const initialState = {
     [false, false, false, false, false]],
     linha_habilitada: 0,
     linha: 0,
+    ganhou: false,
+    welcome: true,
 }
 
 let contador = 0;
@@ -21,8 +23,12 @@ const termoReducer = (state, action) => {
                 
                 return {
                     ...state,
+                    disable: [[true, true, true, true, true],
+                    [true, true, true, true, true],
+                    [true, true, true, true, true],
+                    [true, true, true, true, true],
+                    [true, true, true, true, true]],
                     change: "acertou",
-                    disable: initialState.disable[aux1]=[true, true, true, true, true],
 
                 };
             }
@@ -46,6 +52,18 @@ const termoReducer = (state, action) => {
                     linha_habilitada: aux,
                 }
               }
+              case "CHANGE_GANHOU": {
+                return {
+                    ...state,
+                    ganhou: true,
+                };
+            }
+            case "CHANGE_WELCOME": {
+                return {
+                    ...state,
+                    welcome: false,
+                };
+            }
         default: 
             return state;
     }

@@ -9,8 +9,26 @@ input {
     border: 5px #312a2c solid;
     text-transform: uppercase;
     background-color: #6e5c62;
-
+    font-family: 'Fredoka One', cursive;
+    box-shadow: inset 0 0 1px #000;
+    box-sizing: 100rem;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
+
+input:focus {
+    text-decoration: none;
+    text-overflow: none;
+    text-shadow: #FFF;
+    text-rendering: none;
+    box-shadow: 0 0 0 0;
+    outline: 0;
+    text-shadow: transparent;
+    border: 5px #312a2c solid ;
+    border-bottom: 10px #312a2c solid ;
+}
+
+
 
 .linha {
     flex-direction: row;

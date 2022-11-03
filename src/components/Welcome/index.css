@@ -1,0 +1,15 @@
+.container--welcome{
+    background-color: #312B2D;
+    z-index: 100;
+    position: relative;
+    height: 67vh;
+    width: 50vw;
+    border-radius: 10px;
+}
+p{
+    margin: 30px 30px 30px 30px;
+}
+
+.fechar {
+    width: auto;
+}
