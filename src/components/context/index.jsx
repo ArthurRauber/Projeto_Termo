@@ -56,6 +56,7 @@ const termoReducer = (state, action) => {
                 return {
                     ...state,
                     ganhou: true,
+                    change: "acertou",
                 };
             }
             case "CHANGE_WELCOME": {

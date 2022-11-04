@@ -56,65 +56,96 @@ const Input = ({disabled, numletras,palavraCerta}) => {
     }
     else{
       if(palavra.join('')==palavraCerta){
+        for(let l=0;l<5;l++){
+          document.getElementById((l+1)*ran).disabled = true;
+        }
         dispatch({
           type:"CHANGE_ENABLED",
         })
-        for(let i=0;i<5;i++){
-            document.getElementById((i+1)*ran).disabled = true;
+        
+        for(let i=5;i>=1;i++){
             document.getElementById((i+1)*ran).style.backgroundColor = "#3aa394";
             document.getElementById((i+1)*ran).style.border =  '5px solid #3aa394';
         }
         dispatch({
             type:"CHANGE_GANHOU",
-        })
-        document.querySelector('acertou').disabled = true;
+        }
+        )
         }
         else{
             let palavraCerta_split = palavraCerta.split('');
                 for(let i=0;i<5;i++){
                 //lugar certo
                 if(palavra[i]==palavraCerta_split[i]){
+                    if((vezesLetraAparece(palavra,palavra[i]))>(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                      letrasExcluidas.push(palavra[i]);
+                      console.log(letrasExcluidas);
+                    }
+
                     document.getElementById((i+1)*ran).style.backgroundColor = "#3aa394";
                     document.getElementById((i+1)*ran).style.border =  '5px solid #3aa394';
                 }
-                else if(palavraCerta.includes(palavra[i])){
-                    if((vezesLetraAparece(palavra,palavra[i]))<=(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                else if(palavraCerta.includes(palavra[i]) && (vezesLetraAparece(palavraCerta,palavra)<2)){
+                  if((vezesLetraAparece(palavra,palavra[i]))<=(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                      console.log("chegou aq " + palavra[i])
                         //lugar errado letra certa
-                        document.getElementById((i+1)*ran).style.backgroundColor = "#d3ad69";
-                        document.getElementById((i+1)*ran).style.border = '5px solid #d3ad69';
+                        if(!(letrasExcluidas.includes(palavra[i]))){
+                            document.getElementById((i+1)*ran).style.backgroundColor = "#615458";
+                            document.getElementById((i+1)*ran).style.border = '5px solid #615458';
+                        }
                     }
                     else{
-                      let vezesqaparece = vezesLetraAparece(palavra,palavra[i])
-                      let e=[false, false, false, false, false];
-                      for(let z=i;z<5;z++){
-                        console.log(palavra[z],palavraCerta[z])
-                        if(vezesqaparece>=2){
-                            if(palavra[z]==palavraCerta[z]){
-                                console.log("chegou aqui")
-                                document.getElementById((z)*ran).style.backgroundColor = "#d3ad69";
-                                document.getElementById((z)*ran).style.border = '5px solid #d3ad69';
-                                
-                              }
-                              else{
-                                e[z]=false;
-                              }
-                            }
-                            if(!e[z]){
-                              letrasExcluidas.push(palavra[z]);
-                            }
-                              console.log(letrasExcluidas);
-                            
-                             if((letrasExcluidas.includes(palavra[z]))){
-                                    document.getElementById((i+1)*ran).style.backgroundColor = "#d3ad69";
-                                    document.getElementById((i+1)*ran).style.border = '5px solid #d3ad69';
-                             }
-                            console.log((i),z)
-                            console.log("letras "+letrasExcluidas)
-                            console.log(letrasExcluidas.includes(palavra[z]))
+                      if((vezesLetraAparece(palavra,palavra[i]))>(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                        if((letrasExcluidas.includes(palavra[i]))){
+                            document.getElementById((i+1)*ran).style.backgroundColor = "#615458";
+                              document.getElementById((i+1)*ran).style.border = '5px solid #615458';
+                        }
+                        else{
+                          letrasExcluidas.push(palavra[i]);
+                          console.log("chegou aq2.0")
+                          document.getElementById((i+1)*ran).style.backgroundColor = "#d3ad69";
+                          document.getElementById((i+1)*ran).style.border = '5px solid #d3ad69';
+                        }
                       }
                     }
                   }
                 }
+                for(let i=0;i<5;i++){
+                    //lugar certo
+                    if(palavra[i]==palavraCerta_split[i]){
+                        if((vezesLetraAparece(palavra,palavra[i]))>(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                          letrasExcluidas.push(palavra[i]);
+                          console.log(letrasExcluidas);
+                        }
+                        
+                        document.getElementById((i+1)*ran).style.backgroundColor = "#3aa394";
+                        document.getElementById((i+1)*ran).style.border =  '5px solid #3aa394';
+                    }
+                    else if(palavraCerta.includes(palavra[i]) && (vezesLetraAparece(palavraCerta,palavra)<2)){
+                      if((vezesLetraAparece(palavra,palavra[i]))<=(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                          console.log("chegou aq " + palavra[i])
+                            //lugar errado letra certa
+                            if(!(letrasExcluidas.includes(palavra[i]))){
+                              document.getElementById((i+1)*ran).style.backgroundColor = "#d3ad69";
+                              document.getElementById((i+1)*ran).style.border = '5px solid #d3ad69';
+                            }
+                        }
+                        else{
+                          if((vezesLetraAparece(palavra,palavra[i]))>(vezesLetraAparece(palavraCerta,palavraCerta_split[i]))){
+                            if((letrasExcluidas.includes(palavra[i]))){
+                              console.log("tá aq")
+                              
+                            }
+                            else{
+                              letrasExcluidas.push(palavra[i]);
+                              console.log("chegou aq2.0")
+                              document.getElementById((i+1)*ran).style.backgroundColor = "#d3ad69";
+                              document.getElementById((i+1)*ran).style.border = '5px solid #d3ad69';
+                            }
+                          }
+                        }
+                      }
+                    }
             }
             dispatch({
               type:"CHANGE_INPUT"
@@ -134,14 +165,15 @@ const Input = ({disabled, numletras,palavraCerta}) => {
         else if(event.key==='ArrowLeft') mudarFoco(item-1)
         else if((event.key==='ArrowRight') || (event.key===' ')) mudarFoco(item+1)
         else if((event.key==='Backspace')) {
-          if(palavra[item]!==""){
-              palavra[item] = "";
-          }else{
-              mudarFoco(item-1)
+            if(palavra[item] != ""){
+                palavra[item] = "";
+            }else{
+                mudarFoco(item-1);              
+            }
           }
         
         }
-    }
+    
 
     useEffect(() => {
         mudarFoco(0);
@@ -179,8 +211,8 @@ const Input = ({disabled, numletras,palavraCerta}) => {
         </div>
         </>
     )
-}
 
+}
 export default Input
 
 const StyledInput = styled.input`
