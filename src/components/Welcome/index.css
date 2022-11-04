@@ -2,14 +2,29 @@
     background-color: #312B2D;
     z-index: 100;
     position: relative;
-    height: 67vh;
-    width: 50vw;
+    height: auto;
+    width: auto;
     border-radius: 10px;
 }
 p{
     margin: 30px 30px 30px 30px;
+    font-size: 16px
 }
 
 .fechar {
     width: auto;
+}
+@media(max-width: 760px){
+    p{
+        margin: 0.2rem;
+        font-size: 0.8rem;
+    }
+    .container--welcome{
+        background-color: #312B2D;
+        z-index: 100;
+        position: relative;
+        height: auto;
+        width: auto;
+        border-radius: 10px;
+    }
 }
